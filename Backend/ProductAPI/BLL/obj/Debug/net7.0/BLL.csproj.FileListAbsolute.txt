@@ -1,0 +1,15 @@
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\bin\Debug\net7.0\BLL.deps.json
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\bin\Debug\net7.0\BLL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\bin\Debug\net7.0\BLL.pdb
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\bin\Debug\net7.0\DAL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\bin\Debug\net7.0\DAL.pdb
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.csproj.AssemblyReference.cache
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.GeneratedMSBuildEditorConfig.editorconfig
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.AssemblyInfoInputs.cache
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.AssemblyInfo.cs
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.csproj.CoreCompileInputs.cache
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.csproj.CopyComplete
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\refint\BLL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\BLL.pdb
+E:\AkijBashir_Assignment\Backend\ProductAPI\BLL\obj\Debug\net7.0\ref\BLL.dll

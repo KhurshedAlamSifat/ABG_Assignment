@@ -1,0 +1,14 @@
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\bin\Debug\net7.0\DAL.deps.json
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\bin\Debug\net7.0\DAL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\bin\Debug\net7.0\DAL.pdb
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.GeneratedMSBuildEditorConfig.editorconfig
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.AssemblyInfoInputs.cache
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.AssemblyInfo.cs
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.csproj.CoreCompileInputs.cache
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\refint\DAL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.pdb
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\ref\DAL.dll
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\bin\Debug\net7.0\DAL.runtimeconfig.json
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.csproj.AssemblyReference.cache
+E:\AkijBashir_Assignment\Backend\ProductAPI\DAL\obj\Debug\net7.0\DAL.genruntimeconfig.cache
