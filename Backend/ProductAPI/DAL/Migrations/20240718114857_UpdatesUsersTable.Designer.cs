@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240718055152_new")]
-    partial class @new
+    [Migration("20240718114857_UpdatesUsersTable")]
+    partial class UpdatesUsersTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,6 +91,38 @@ namespace DAL.Migrations
                             ProductName = "Product 5",
                             ProductPrice = 50.0,
                             ProductQuantity = 500
+                        });
+                });
+
+            modelBuilder.Entity("DAL.Models.User", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Username = "admin",
+                            Password = "admin123",
+                            UserType = "Admin"
+                        },
+                        new
+                        {
+                            Username = "user",
+                            Password = "user123",
+                            UserType = "User"
                         });
                 });
 #pragma warning restore 612, 618

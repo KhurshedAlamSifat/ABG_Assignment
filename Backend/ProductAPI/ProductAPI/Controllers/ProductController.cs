@@ -1,6 +1,7 @@
 ﻿using BLL.DTOs;
 using BLL.Services;
 using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -50,6 +51,7 @@ namespace ProductAPI.Controllers
         }
 
         [HttpPost("Add")]
+        [Authorize]
         public async Task<IActionResult> CreateProduct(ProductDTO product)
         {
             try
@@ -64,6 +66,7 @@ namespace ProductAPI.Controllers
         }
 
         [HttpPut("{id}/Update")]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct(int id, ProductDTO product)
         {
             try
@@ -81,6 +84,7 @@ namespace ProductAPI.Controllers
         }
 
         [HttpDelete("{id}/Delete")]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try

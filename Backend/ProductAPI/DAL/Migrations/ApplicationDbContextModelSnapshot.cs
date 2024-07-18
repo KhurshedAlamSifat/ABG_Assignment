@@ -90,6 +90,38 @@ namespace DAL.Migrations
                             ProductQuantity = 500
                         });
                 });
+
+            modelBuilder.Entity("DAL.Models.User", b =>
+                {
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Username");
+
+                    b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Username = "admin",
+                            Password = "admin123",
+                            UserType = "Admin"
+                        },
+                        new
+                        {
+                            Username = "user",
+                            Password = "user123",
+                            UserType = "User"
+                        });
+                });
 #pragma warning restore 612, 618
         }
     }

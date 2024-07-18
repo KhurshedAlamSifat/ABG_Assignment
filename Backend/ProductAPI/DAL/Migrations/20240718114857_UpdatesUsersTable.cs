@@ -7,7 +7,7 @@
 namespace DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class @new : Migration
+    public partial class UpdatesUsersTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,6 +28,19 @@ namespace DAL.Migrations
                     table.PrimaryKey("PK_Products", x => x.ProductId);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Username);
+                });
+
             migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ProductId", "ProductDescription", "ProductName", "ProductPrice", "ProductQuantity" },
@@ -39,6 +52,15 @@ namespace DAL.Migrations
                     { 4, "Description 4", "Product 4", 40.0, 400 },
                     { 5, "Description 5", "Product 5", 50.0, 500 }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Username", "Password", "UserType" },
+                values: new object[,]
+                {
+                    { "admin", "admin123", "Admin" },
+                    { "user", "user123", "User" }
+                });
         }
 
         /// <inheritdoc />
@@ -46,6 +68,9 @@ namespace DAL.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

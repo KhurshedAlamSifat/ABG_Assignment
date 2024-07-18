@@ -5,17 +5,21 @@ namespace DAL.Models
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseSqlServer("Data Source=ASUS-SIFAT;Initial Catalog=ABG;Integrated Security=True;Persist Security Info=False;Trust Server Certificate=True");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //seed User
+            modelBuilder.Entity<User>().HasData(
+                new User { Username = "admin", Password = "admin123", UserType = "Admin" }, // Example user
+                new User { Username = "user", Password = "user123", UserType = "User" }  // Example user
+            );
+
+            //seed Product
             modelBuilder.Entity<Product>().HasData(
                 new Product { ProductId = 1, ProductName = "Product 1", ProductDescription = "Description 1", ProductPrice = 10.0, ProductQuantity = 100 },
                 new Product { ProductId = 2, ProductName = "Product 2", ProductDescription = "Description 2", ProductPrice = 20.0, ProductQuantity = 200 },
