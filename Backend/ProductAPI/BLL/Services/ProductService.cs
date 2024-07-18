@@ -1,55 +1,74 @@
 ﻿using AutoMapper;
 using BLL.DTOs;
+using DAL;
 using DAL.Interfaces;
 using DAL.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Services
 {
     public class ProductService
     {
-        private readonly IRepository<Product, int, Product> _productRepository;
-        private readonly IMapper _mapper;
-
-        public ProductService(IRepository<Product, int, Product> productRepository, IMapper mapper)
+        public static async Task<List<ProductDTO>> GetAllProductsAsync()
         {
-            _productRepository = productRepository;
-            _mapper = mapper;
+            var data = await DataAccessFactory.ProductData().Read();
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Product, ProductDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<List<ProductDTO>>(data);
+            return mapped;
         }
 
-        public async Task<List<ProductDTO>> GetAllProductsAsync()
+        public static async Task<ProductDTO> GetProductByIdAsync(int id)
         {
-            var products = await _productRepository.Read();
-            return _mapper.Map<List<ProductDTO>>(products);
+            var data = await DataAccessFactory.ProductData().Read(id);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Product, ProductDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<ProductDTO>(data);
+            return mapped;
+        }
+        public static async Task<ProductDTO> CreateProductAsync(ProductDTO product)
+        {
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<ProductDTO, Product>();
+            });
+            var mapper = new Mapper(cfg);
+            var products = mapper.Map<Product>(product);
+            await DataAccessFactory.ProductData().Create(products);
+            return product;
+            
         }
 
-        public async Task<ProductDTO> GetProductByIdAsync(int id)
+        public static async Task<ProductDTO> UpdateProductAsync(ProductDTO product)
         {
-            var product = await _productRepository.Read(id);
-            return _mapper.Map<ProductDTO>(product);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<ProductDTO, Product>();
+            });
+            var mapper = new Mapper(cfg);
+            var products = mapper.Map<Product>(product);
+            await DataAccessFactory.ProductData().Update(products);
+            return product;
         }
 
-        public async Task<ProductDTO> CreateProductAsync(ProductDTO productDto)
+        public static async Task<bool> DeleteProductAsync(int id)
         {
-            var product = _mapper.Map<Product>(productDto);
-            var createdProduct = await _productRepository.Create(product);
-            return _mapper.Map<ProductDTO>(createdProduct);
-        }
-
-        public async Task<ProductDTO> UpdateProductAsync(ProductDTO productDto)
-        {
-            var product = _mapper.Map<Product>(productDto);
-            var updatedProduct = await _productRepository.Update(product);
-            return _mapper.Map<ProductDTO>(updatedProduct);
-        }
-
-        public async Task<bool> DeleteProductAsync(int id)
-        {
-            return await _productRepository.Delete(id);
+            var data = await DataAccessFactory.ProductData().Delete(id);
+            var cfg = new MapperConfiguration(c =>
+            {
+                c.CreateMap<Product, ProductDTO>();
+            });
+            var mapper = new Mapper(cfg);
+            var mapped = mapper.Map<bool>(data);
+            return mapped;
         }
     }
 }

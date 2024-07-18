@@ -14,9 +14,10 @@ namespace DAL.Repositories
         public async Task<Product> Create(Product obj)
         {
             await db.Products.AddAsync(obj);
-            await db.SaveChangesAsync();
-            return obj;
+            if(await db.SaveChangesAsync()>0) return obj;
+            return null;
         }
+
 
         public async Task<bool> Delete(int id)
         {
@@ -32,7 +33,7 @@ namespace DAL.Repositories
 
         public async Task<List<Product>> Read()
         {
-            return await db.Products.ToListAsync();
+            return await db.Products.AsNoTracking().ToListAsync();
         }
 
         public async Task<Product> Read(int id)
