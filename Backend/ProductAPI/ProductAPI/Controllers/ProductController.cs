@@ -11,27 +11,20 @@ namespace ProductAPI.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        [HttpPost("Add")]
-        public async Task<IActionResult> CreateProduct(ProductDTO product)
+        private readonly ProductService _productService;
+
+        public ProductController(ProductService productService)
         {
-            try
-            {
-                var data = await ProductService.CreateProductAsync(product);
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            _productService = productService;
         }
 
         [HttpGet("All")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllProducts()
         {
             try
             {
-                var data = await ProductService.GetAllProductsAsync();
-                return Ok(data);
+                var products = await _productService.GetAllProductsAsync();
+                return Ok(products);
             }
             catch (Exception ex)
             {
@@ -40,27 +33,15 @@ namespace ProductAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             try
             {
-                var data = await ProductService.GetProductByIdAsync(id);
-                if (data == null) return NotFound();
-                return Ok(data);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);  
-            }
-        }
+                var product = await _productService.GetProductByIdAsync(id);
+                if (product == null)
+                    return NotFound();
 
-        [HttpPost("{id}/Update")]
-        public async Task<IActionResult> UpdateProduct(ProductDTO product)
-        {
-            try
-            {
-                var data = await ProductService.UpdateProductAsync(product);
-                return Ok(data);
+                return Ok(product);
             }
             catch (Exception ex)
             {
@@ -68,14 +49,47 @@ namespace ProductAPI.Controllers
             }
         }
 
-        [HttpPost("{id}/Delete")]
+        [HttpPost("Add")]
+        public async Task<IActionResult> CreateProduct(ProductDTO product)
+        {
+            try
+            {
+                var createdProduct = await _productService.CreateProductAsync(product);
+                return CreatedAtAction(nameof(GetProductById), new { id = createdProduct.ProductId }, createdProduct);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("{id}/Update")]
+        public async Task<IActionResult> UpdateProduct(int id, ProductDTO product)
+        {
+            try
+            {
+                if (id != product.ProductId)
+                    return BadRequest("Product ID mismatch");
+
+                var updatedProduct = await _productService.UpdateProductAsync(product);
+                return Ok(updatedProduct);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}/Delete")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try
             {
-                var result = await ProductService.DeleteProductAsync(id);
-                if (!result) return NotFound();
-                return NoContent(); 
+                var result = await _productService.DeleteProductAsync(id);
+                if (!result)
+                    return NotFound();
+
+                return NoContent();
             }
             catch (Exception ex)
             {

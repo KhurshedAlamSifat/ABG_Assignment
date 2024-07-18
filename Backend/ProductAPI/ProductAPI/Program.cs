@@ -1,10 +1,28 @@
+using BLL.Services;
+using AutoMapper;
+using BLL.Mapper; 
+using DAL.Interfaces;
+using DAL.Models;
+using DAL.Repositories;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Register IRepository<Product, int, Product> with ProductRepository
+builder.Services.AddScoped<IRepository<Product, int, Product>, ProductRepository>();
+
+// Register AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile)); // Assuming AutoMapper profiles are in the same assembly as Startup
+
+// Register ProductService with IMapper dependency
+builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

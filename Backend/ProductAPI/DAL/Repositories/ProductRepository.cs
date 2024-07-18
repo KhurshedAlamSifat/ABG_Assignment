@@ -9,42 +9,47 @@ using System.Threading.Tasks;
 
 namespace DAL.Repositories
 {
-    internal class ProductRepository : Repository, IRepository<Product, int, Product>
+    public class ProductRepository : IRepository<Product, int, Product>
     {
-        public async Task<Product> Create(Product obj)
+        private readonly ApplicationDbContext _dbContext;
+
+        public ProductRepository(ApplicationDbContext dbContext)
         {
-            await db.Products.AddAsync(obj);
-            if(await db.SaveChangesAsync()>0) return obj;
-            return null;
+            _dbContext = dbContext;
         }
 
+        public async Task<Product> Create(Product obj)
+        {
+            await _dbContext.Products.AddAsync(obj);
+            await _dbContext.SaveChangesAsync();
+            return obj;
+        }
 
         public async Task<bool> Delete(int id)
         {
             var product = await Read(id);
             if (product == null)
-            {
                 return false;
-            }
-            db.Products.Remove(product);
-            await db.SaveChangesAsync();
+
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
             return true;
         }
 
         public async Task<List<Product>> Read()
         {
-            return await db.Products.AsNoTracking().ToListAsync();
+            return await _dbContext.Products.AsNoTracking().ToListAsync();
         }
 
         public async Task<Product> Read(int id)
         {
-            return await db.Products.FindAsync(id);
+            return await _dbContext.Products.FindAsync(id);
         }
 
         public async Task<Product> Update(Product obj)
         {
-            db.Products.Update(obj);
-            await db.SaveChangesAsync();
+            _dbContext.Products.Update(obj);
+            await _dbContext.SaveChangesAsync();
             return obj;
         }
     }

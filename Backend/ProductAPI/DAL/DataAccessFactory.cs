@@ -11,9 +11,9 @@ namespace DAL
 {
     public class DataAccessFactory
     {
-        public static IRepository<Product, int, Product> ProductData()
+        public static IRepository<Product, int, Product> ProductData(ApplicationDbContext dbContext)
         {
-            return new ProductRepository();
+            return new ProductRepository(dbContext);
         }
     }
 }

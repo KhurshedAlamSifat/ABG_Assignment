@@ -9,10 +9,11 @@ namespace DAL.Repositories
 {
     internal class Repository
     {
-        internal ApplicationDbContext db;
-        internal Repository()
+        protected readonly ApplicationDbContext _dbContext;
+
+        internal Repository(ApplicationDbContext dbContext)
         {
-            db = new ApplicationDbContext();
+            _dbContext = dbContext;
         }
     }
 }
