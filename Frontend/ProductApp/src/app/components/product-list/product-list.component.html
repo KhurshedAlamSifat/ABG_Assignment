@@ -1,38 +1,25 @@
 <div class="list row">
-  <div class="col-md-8">
-    <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Search by Product Name"
-        [(ngModel)]="productName"
-      />
-      <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchProductName()"
-        >
-          Search
-        </button>
-      </div>
-    </div>
+  
+  <div class="col-md-6">
+    <h4>Products List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        [class.active]="i == currentIndex"
+        (click)="setActiveProduct(product, i)"
+        *ngFor="let product of products | paginate: { itemsPerPage: 3, currentPage: page }; let i = index"
+      >
+        <h4>{{ product.productName }}</h4> 
+        <p>Description: {{ product.productDescription }}</p> 
+        <p>Price: {{ product.productPrice }} TK</p> 
+        <p>Quantity: {{ product.productQuantity }}</p> 
+      </li>
+    </ul>
+
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
   </div>
   <div class="col-md-6">
-  <h4>Products List</h4>
-  <ul class="list-group">
-    <li
-      class="list-group-item"
-      [class.active]="i == currentIndex"
-      (click)="setActiveProduct(product, i)"
-      *ngFor="let product of products | paginate: { itemsPerPage: 3, currentPage: page }; let i = index"
-    >
-      <h4>{{ product.productName }}</h4> 
-      <p>Description: {{ product.productDescription }}</p> 
-      <p>Price: ${{ product.productPrice }}</p> 
-      <p>Quantity: {{ product.productQuantity }}</p> 
-    </li>
-  </ul>
-
-  <pagination-controls (pageChange)="page = $event"></pagination-controls>
+    <app-product-details [viewMode]="true" [currentProduct]="currentProduct"></app-product-details>
+  </div>
+</div>
 
