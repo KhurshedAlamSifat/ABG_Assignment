@@ -7,9 +7,15 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { ProductListComponent } from './components/product-list/product-list.component';
 
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ProductDetailsComponent } from './components/product-details/product-details.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoginComponent } from './components/login/login.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { AuthInterceptor } from './auth.interceptor';
+
+
+
 
 @NgModule({
   declarations: [
@@ -17,6 +23,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AddProductComponent,
     ProductListComponent,
     ProductDetailsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +32,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HttpClientModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

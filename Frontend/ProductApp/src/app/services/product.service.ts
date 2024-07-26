@@ -30,7 +30,6 @@ export class ProductService {
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/${id}/Delete`);
   }
-
   findByProductName(name: any): Observable<Product[]> {
     return this.http.get<Product[]>(`${baseUrl}?productName=${name}`);
   }

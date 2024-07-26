@@ -5,8 +5,18 @@
       <li class="nav-item">
         <a routerLink="products" class="nav-link">Product</a>
       </li>
-      <li class="nav-item">
+
+      <li class="nav-item" *ngIf="authService.isAuthenticated()">
         <a routerLink="products/add" class="nav-link">Add Product</a>
+      </li>
+    </div>
+    <div class="navbar-nav ml-auto">
+      <li class="nav-item" *ngIf="!authService.isAuthenticated()">
+        <a routerLink="login" class="nav-link">Login</a>
+      </li>
+
+      <li class="nav-item" *ngIf="authService.isAuthenticated()">
+        <a (click)="logout()" class="nav-link">Logout</a>
       </li>
     </div>
   </nav>

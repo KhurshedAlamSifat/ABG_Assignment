@@ -51,7 +51,7 @@ namespace ProductAPI.Controllers
         }
 
         [HttpPost("Add")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> CreateProduct(ProductDTO product)
         {
             try
@@ -66,7 +66,7 @@ namespace ProductAPI.Controllers
         }
 
         [HttpPut("{id}/Update")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> UpdateProduct(int id, ProductDTO product)
         {
             try
@@ -84,7 +84,7 @@ namespace ProductAPI.Controllers
         }
 
         [HttpDelete("{id}/Delete")]
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             try

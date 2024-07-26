@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../../models/product.model';
@@ -6,18 +6,16 @@ import { Product } from '../../models/product.model';
 @Component({
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
-  styleUrl: './product-details.component.css',
+  styleUrls: ['./product-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
   @Input() viewMode = false;
-
   @Input() currentProduct: Product = {
     productName: '',
     productDescription: '',
     productPrice: 0,
     productQuantity: 0,
   };
-
   message = '';
 
   constructor(
@@ -28,7 +26,6 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.viewMode) {
-      this.message = '';
       this.getProduct(this.route.snapshot.params['id']);
     }
   }
@@ -55,7 +52,7 @@ export class ProductDetailsComponent implements OnInit {
           console.log(res);
           this.message = res.message
             ? res.message
-            : 'This Product was updated successfully!';
+            : 'Product was updated successfully!';
         },
         error: (e) => console.error(e),
       });

@@ -1,88 +1,77 @@
-@if (viewMode){
-  @if (currentProduct.productId){
-  <h4>Product</h4>
-  <div>
-    <label><strong>Product Name:</strong></label> {{ currentProduct.productName }}
+<div *ngIf="currentProduct.productId; else noProduct">
+  <div *ngIf="!viewMode">
+    <div class="edit-form">
+      <h4>Product Details</h4>
+      <form>
+        <div class="form-group">
+          <label for="productName">Product Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productName"
+            [(ngModel)]="currentProduct.productName"
+            name="productName"
+          />
+        </div>
+        <div class="form-group">
+          <label for="productDescription">Product Description</label>
+          <input
+            type="text"
+            class="form-control"
+            id="productDescription"
+            [(ngModel)]="currentProduct.productDescription"
+            name="productDescription"
+          />
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Price</label>
+          <input
+            type="number"
+            class="form-control"
+            id="productPrice"
+            [(ngModel)]="currentProduct.productPrice"
+            name="productPrice"
+          />
+        </div>
+        <div class="form-group">
+          <label for="productQuantity">Quantity</label>
+          <input
+            type="number"
+            class="form-control"
+            id="productQuantity"
+            [(ngModel)]="currentProduct.productQuantity"
+            name="productQuantity"
+          />
+        </div>
+      </form>
+      <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+      <button class="btn btn-success" (click)="updateProduct()">Update</button>
+      <p>{{ message }}</p>
+    </div>
   </div>
-  <div>
-    <label><strong>Description:</strong></label>
-    {{ currentProduct.productDescription }}
-  </div>
-  <div>
-    <label><strong>Price:</strong></label>
-    {{ currentProduct.productPrice }}
-  </div>
-
-  <a class="badge badge-warning" routerLink="/products/{{ currentProduct.productId }}">
-    Edit
-  </a>
-  } @else {<p>Please click on a Product...</p>}
-} @else {
-  @if (currentProduct.productId) {
-  <div class="edit-form">
-    <h4>Product</h4>
-    <form>
-      <div class="form-group">
-      <label for="productName">Product Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="currentProduct.productName"
-        name="productName"
-      />
+  <div *ngIf="viewMode">
+    <h4>Product Details</h4>
+    <div>
+      <label><strong>Product Name:</strong></label>
+      {{ currentProduct.productName }}
     </div>
-
-    <div class="form-group">
-      <label for="productDescription">Product Description</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="currentProduct.productDescription"
-        name="productDescription"
-      />
+    <div>
+      <label><strong>Description:</strong></label>
+      {{ currentProduct.productDescription }}
     </div>
-
-    <div class="form-group">
-      <label for="productPrice">Price</label>
-      <input
-        type="number"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="currentProduct.productPrice"
-        name="productPrice"
-      />
+    <div>
+      <label><strong>Price:</strong></label> {{ currentProduct.productPrice }}
     </div>
-
-    <div class="form-group">
-      <label for="productQuantity">Quantity</label>
-      <input
-        type="number"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="currentProduct.productQuantity"
-        name="productQuantity"
-      />
-    </div>
-
-    </form>
-    <button class="badge badge-danger mr-2" (click)="deleteProduct()">
-      Delete
-    </button>
-
-    <button
-      type="submit"
-      class="badge badge-success mb-2"
-      (click)="updateProduct()">
-      Update
-    </button>
-    <p>{{ message }}</p>
+    <a
+  class="btn btn-warning btn-sm d-flex align-items-center"
+  [routerLink]="['/products', currentProduct.productId]"
+>
+  <i class="fas fa-edit me-2"></i> Edit
+</a>
 
   </div>
-  } @else {<p>Cannot access this Product...</p>}
-}
+</div>
+
+<ng-template #noProduct>
+  <p>Cannot access this Product...</p>
+</ng-template>

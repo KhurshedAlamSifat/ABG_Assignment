@@ -1,0 +1,5 @@
+.navbar-nav .nav-item .nav-link.active {
+  color: #fff; /* Change to your desired active color */
+  font-weight: bold;
+  border-bottom: 2px solid #4caf50; /* Add a bottom border */
+}

@@ -20,9 +20,16 @@ namespace ProductAPI.Controllers
        
         // POST api/<AuthController>
         [HttpPost]
-        public string Login([FromBody] LoginRequest loginModel)
+        public IActionResult Login([FromBody] LoginRequest loginModel)
         {
-            return _authentication.Login(loginModel);
+            var token = _authentication.Login(loginModel);
+
+            if (!string.IsNullOrEmpty(token))
+            {
+                return Ok(new { Token = token });
+            }
+
+            return Unauthorized("Invalid credentials");
         }
 
         // PUT api/<AuthController>/5

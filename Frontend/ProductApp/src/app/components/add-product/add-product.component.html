@@ -1,58 +1,60 @@
 <div>
   <div class="submit-form">
-    @if (!submitted) {
-    <div class="form-group">
-      <label for="productName">Product Name</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="product.productName"
-        name="productName"
-      />
+    <div *ngIf="!submitted; else successMessage">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="productName"
+          required
+          [(ngModel)]="product.productName"
+          name="productName"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="productDescription">Product Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="productDescription"
+          required
+          [(ngModel)]="product.productDescription"
+          name="productDescription"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="productPrice">Price</label>
+        <input
+          type="number"
+          class="form-control"
+          id="productPrice"
+          required
+          [(ngModel)]="product.productPrice"
+          name="productPrice"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="productQuantity">Quantity</label>
+        <input
+          type="number"
+          class="form-control"
+          id="productQuantity"
+          required
+          [(ngModel)]="product.productQuantity"
+          name="productQuantity"
+        />
+      </div>
+
+      <button (click)="saveProduct()" class="btn btn-success">Submit</button>
     </div>
 
-    <div class="form-group">
-      <label for="productDescription">Product Description</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="product.productDescription"
-        name="productDescription"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="productPrice">Price</label>
-      <input
-        type="number"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="product.productPrice"
-        name="productPrice"
-      />
-    </div>
-
-    <div class="form-group">
-      <label for="productQuantity">Quantity</label>
-      <input
-        type="number"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="product.productQuantity"
-        name="productQuantity"
-      />
-    </div>
-
-    <button (click)="saveProduct()" class="btn btn-success">Submit</button>
-    } @else {
-    <h4>Product was submitted successfully!</h4>
-    <button class="btn btn-success" (click)="newProduct()">Add</button>
-    }
+    <ng-template #successMessage>
+      <h4>Product was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newProduct()">Add Another</button>
+    </ng-template>
   </div>
 </div>
