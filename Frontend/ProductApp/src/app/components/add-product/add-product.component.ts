@@ -11,8 +11,8 @@ export class AddProductComponent {
   product: Product = {
     productName: '',
     productDescription: '',
-    productPrice: 0,
-    productQuantity: 0,
+    productPrice: null,
+    productQuantity: null,
   };
   submitted = false;
 

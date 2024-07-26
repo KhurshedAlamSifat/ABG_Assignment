@@ -2,7 +2,7 @@
   <div *ngIf="!viewMode">
     <div class="edit-form">
       <h4>Product Details</h4>
-      <form>
+      <form #productForm="ngForm" (ngSubmit)="updateProduct()" novalidate>
         <div class="form-group">
           <label for="productName">Product Name</label>
           <input
@@ -11,8 +11,14 @@
             id="productName"
             [(ngModel)]="currentProduct.productName"
             name="productName"
+            #productName="ngModel"
+            required
           />
+          <div *ngIf="productName.invalid && (productName.dirty || productName.touched)" class="invalid-feedback">
+            <div *ngIf="productName.errors?.['required']">Product Name is required.</div>
+          </div>
         </div>
+
         <div class="form-group">
           <label for="productDescription">Product Description</label>
           <input
@@ -21,8 +27,14 @@
             id="productDescription"
             [(ngModel)]="currentProduct.productDescription"
             name="productDescription"
+            #productDescription="ngModel"
+            required
           />
+          <div *ngIf="productDescription.invalid && (productDescription.dirty || productDescription.touched)" class="invalid-feedback">
+            <div *ngIf="productDescription.errors?.['required']">Product Description is required.</div>
+          </div>
         </div>
+
         <div class="form-group">
           <label for="productPrice">Price</label>
           <input
@@ -31,8 +43,17 @@
             id="productPrice"
             [(ngModel)]="currentProduct.productPrice"
             name="productPrice"
+            #productPrice="ngModel"
+            required
+            min="0.01"
+            step="0.01"
           />
+          <div *ngIf="productPrice.invalid && (productPrice.dirty || productPrice.touched)" class="invalid-feedback">
+            <div *ngIf="productPrice.errors?.['required']">Price is required.</div>
+            <div *ngIf="productPrice.errors?.['min']">Price must be greater than zero.</div>
+          </div>
         </div>
+
         <div class="form-group">
           <label for="productQuantity">Quantity</label>
           <input
@@ -41,14 +62,23 @@
             id="productQuantity"
             [(ngModel)]="currentProduct.productQuantity"
             name="productQuantity"
+            #productQuantity="ngModel"
+            required
+            min="1"
           />
+          <div *ngIf="productQuantity.invalid && (productQuantity.dirty || productQuantity.touched)" class="invalid-feedback">
+            <div *ngIf="productQuantity.errors?.['required']">Quantity is required.</div>
+            <div *ngIf="productQuantity.errors?.['min']">Quantity must be at least 1.</div>
+          </div>
         </div>
+
+        <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">Update</button>
+        <button type="button" class="btn btn-danger" (click)="deleteProduct()">Delete</button>
+        <p>{{ message }}</p>
       </form>
-      <button class="btn btn-danger" (click)="deleteProduct()">Delete</button>
-      <button class="btn btn-success" (click)="updateProduct()">Update</button>
-      <p>{{ message }}</p>
     </div>
   </div>
+
   <div *ngIf="viewMode">
     <h4>Product Details</h4>
     <div>
@@ -63,12 +93,11 @@
       <label><strong>Price:</strong></label> {{ currentProduct.productPrice }}
     </div>
     <a
-  class="btn btn-warning btn-sm d-flex align-items-center"
-  [routerLink]="['/products', currentProduct.productId]"
->
-  <i class="fas fa-edit me-2"></i> Edit
-</a>
-
+      class="btn btn-warning btn-sm d-flex align-items-center"
+      [routerLink]="['/products', currentProduct.productId]"
+    >
+      <i class="fas fa-edit me-2"></i> Edit
+    </a>
   </div>
 </div>
 

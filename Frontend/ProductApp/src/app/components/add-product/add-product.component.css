@@ -2,3 +2,6 @@
   max-width: 400px;
   margin: auto;
 }
+.invalid-feedback {
+  color: red;
+}
